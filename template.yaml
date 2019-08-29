@@ -17,12 +17,12 @@ Resources:
       Policies:
         - AWSXrayWriteOnlyAccess
         - DynamoDBCrudPolicy:
-            TableName: !Ref Table
+            TableName: !Ref NewTable
       Environment:
         Variables:
-          TABLE_NAME: !Ref Table
-          TABLE_ARN: !GetAtt Table.Arn
-  Table:
+          TABLE_NAME: !Ref NewTable
+          TABLE_ARN: !GetAtt NewTable.Arn
+  NewTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -34,7 +34,7 @@ Resources:
           KeyType: HASH
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
-      TableName: !Sub ${AWS::StackName}-Table
+      TableName: !Sub ${AWS::StackName}-NewTable
 Parameters:
   StackTagName:
     Type: String
